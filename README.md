@@ -251,3 +251,26 @@ This project is open source and available under the MIT License.
 ## Support
 
 For issues and questions, please open an issue on the GitHub repository.
+
+### 管理者アカウント作成
+
+```
+yuto2@yutoabe:~/2025/app/reservation-system$ docker compose exec backend python -c "
+from app.core.database import SessionLocal
+from app.models.user import User
+from app.core.security import get_password_hash
+
+db = SessionLocal()
+admin = User(
+    username='admin',
+    email='admin@example.com',
+    hashed_password=get_password_hash('admin123'),
+    is_admin=True
+)
+db.add(admin)
+db.commit()
+print('Admin user created: username=admin, password=admin123')
+"
+WARN[0000] /home/yuto2/2025/app/reservation-system/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+Admin user created: username=admin, password=admin123
+```
